@@ -253,7 +253,7 @@ textarea.ta{width:100%;min-height:130px;padding:12px 13px;border:1px solid var(-
 .dstat{background:var(--sheet);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
 .dstat strong{display:block;font-size:2rem;font-family:"Iowan Old Style",Palatino,Georgia,serif;color:var(--deep);line-height:1.1}
 .dstat span{color:var(--soft);font-size:.88rem}
-.tabs{display:flex;gap:6px;border-bottom:1px solid var(--line);margin:26px 0 4px;overflow-x:auto}
+.tabs{display:flex;flex-wrap:wrap;gap:2px 6px;border-bottom:1px solid var(--line);margin:26px 0 4px}
 .tabs button{background:none;border:0;padding:12px 14px;font-weight:700;color:var(--soft);border-bottom:3px solid transparent;white-space:nowrap}
 .tabs button.cur{color:var(--deep);border-color:var(--teal)}
 .tabs .n{display:inline-block;min-width:22px;padding:0 7px;margin-left:6px;border-radius:999px;background:var(--mint);color:var(--deep);font-size:.78rem;text-align:center}
@@ -731,7 +731,8 @@ function dashHtml() {
   return '<div class="wrap"><div class="dhead"><div><h1>Your appointments</h1><p>' + esc(S.myDoc.name) + ', ₹' + S.myDoc.price_per_min + ' per minute</p></div>' +
     '<div style="display:flex;gap:8px"><button class="btn ghost sm" data-act="refresh">Refresh</button><button class="btn ghost sm" data-act="signout">Sign out</button></div></div>' +
     '<div class="dstats"><div class="dstat"><strong>' + req.length + "</strong><span>New requests</span></div><div class=\"dstat\"><strong>" + up.length + "</strong><span>Confirmed upcoming</span></div><div class=\"dstat\"><strong>" + past.length + "</strong><span>Past</span></div></div>" +
-    '<div class="tabs" role="tablist">' + tab("req", "New requests", req.length) + tab("up", "Upcoming", up.length) + tab("past", "Past", past.length) + tab("slots", "My slots and price", null) + "</div>" +
+    (S.dSlots.length === 0 && S.tab !== "slots" ? '<div class="callout"><strong>You have no open time slots.</strong> Patients cannot book you until you add some. <button class="linkbtn" data-act="tab" data-t="slots">Add time slots</button></div>' : "") +
+    '<div class="tabs" role="tablist">' + tab("req", "New requests", req.length) + tab("up", "Upcoming", up.length) + tab("past", "Past", past.length) + tab("slots", "Slots and price", null) + "</div>" +
     (S.tab === "slots" ? slotsTabHtml() : "<div>" + rows + "</div>") + "</div>";
 }
 
