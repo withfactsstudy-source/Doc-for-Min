@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Second Reading | Talk to a doctor about your reports</title>
+<meta name="robots" content="noindex, nofollow"><!-- Prototype: remove this line when you launch so Google can list the site -->
+<meta name="description" content="Choose a registered doctor, book a time, share your reports and talk it through.">
+<style>
+:root{
+  --paper:#F2F6F5; --sheet:#FFFFFF; --ink:#10222A; --soft:#4A5E65;
+  --teal:#0B5A60; --deep:#073F44; --mint:#DDEEEA; --line:#D5E1DF;
+  --amber:#E39A1B; --pen:#2B4FA3; --on:#FFFFFF; --good:#1E9E5A;
+  --hero1:#0A4B51; --hero2:#137A78; --shadow:0 14px 30px -20px rgba(16,34,42,.45);
+  --p-pend-bg:#FFF1D6; --p-pend:#7A4B00; --p-ok-bg:#D9F3E5; --p-ok:#14683A; --p-no-bg:#FBE0DD; --p-no:#8E241B;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --paper:#0C171B; --sheet:#14232A; --ink:#E8F1F0; --soft:#A3B7BB;
+    --teal:#4FB5AC; --deep:#8ED5CD; --mint:#173035; --line:#25393F;
+    --amber:#F0B429; --pen:#8FB0FF; --on:#062428; --good:#4CD08A;
+    --hero1:#0D2F34; --hero2:#12484B; --shadow:0 14px 30px -20px rgba(0,0,0,.8);
+    --p-pend-bg:#3A2D10; --p-pend:#F0B429; --p-ok-bg:#12301F; --p-ok:#4CD08A; --p-no-bg:#3A1714; --p-no:#FF9C94;
+    color-scheme:dark;
+  }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans",sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;font-weight:600;letter-spacing:-.01em;line-height:1.15}
+button{font:inherit;color:inherit;cursor:pointer}
+input,select,textarea{font:inherit}
+:focus-visible{outline:3px solid var(--pen);outline-offset:2px;border-radius:6px}
+.sr{position:absolute;left:-9999px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.wrap.narrow{max-width:640px}
+svg.i{width:1.15em;height:1.15em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none;vertical-align:-.2em}
+
+.top{position:sticky;top:0;z-index:20;background:var(--paper);border-bottom:1px solid var(--line)}
+.top .wrap{height:62px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{display:flex;align-items:center;gap:10px;background:none;border:0;font-family:"Iowan Old Style",Palatino,Georgia,serif;font-weight:700;font-size:1.25rem;color:var(--deep)}
+.logo svg{width:30px;height:30px}
+.nav{display:flex;align-items:center;gap:6px}
+.nav button{background:none;border:0;padding:9px 12px;border-radius:8px;color:var(--soft);font-weight:600;font-size:.95rem}
+.nav button:hover{background:var(--mint);color:var(--deep)}
+.nav .join{background:var(--teal);color:var(--on)}
+.nav .join:hover{background:var(--deep);color:var(--on)}
+@media (max-width:560px){.nav .hide-sm{display:none}}
+
+.rise{animation:rise .4s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+.hero{background:linear-gradient(135deg,var(--hero1),var(--hero2));color:#fff;position:relative;overflow:hidden}
+.hero .wrap{position:relative;z-index:1;padding:56px 20px 70px}
+.hero h1{font-size:clamp(2.1rem,5.4vw,3.3rem);max-width:15em;margin-bottom:16px}
+.hero p.lead{font-size:1.15rem;color:rgba(255,255,255,.85);max-width:32em;margin-bottom:28px}
+.searchbox{display:flex;align-items:center;gap:10px;background:var(--sheet);color:var(--ink);border-radius:12px;padding:6px 8px 6px 16px;max-width:620px;box-shadow:0 16px 40px -18px rgba(0,0,0,.5)}
+.searchbox svg{color:var(--soft)}
+.searchbox input{flex:1;border:0;background:none;color:var(--ink);padding:13px 4px;min-width:0}
+.searchbox input:focus-visible{outline:none}
+.searchbox:focus-within{outline:3px solid #fff;outline-offset:2px}
+.trust{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.trust span{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:7px 14px;font-size:.9rem}
+.ecg{position:absolute;left:0;right:0;bottom:10px;width:100%;height:90px;opacity:.28}
+.ecg path{stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1400;stroke-dashoffset:1400;animation:trace 3.2s ease forwards .3s}
+@keyframes trace{to{stroke-dashoffset:0}}
+
+.sec{padding:44px 0 8px}
+.sec h2{font-size:1.55rem;margin-bottom:6px}
+.sec .sub{color:var(--soft);margin-bottom:22px}
+.backlink{background:none;border:0;color:var(--deep);font-weight:600;padding:18px 0 6px;display:inline-block}
+
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+.tile{background:var(--sheet);border:1px solid var(--line);border-radius:14px;padding:18px;text-align:left;display:flex;flex-direction:column;gap:12px;transition:transform .15s,box-shadow .15s,border-color .15s}
+.tile:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:var(--teal)}
+.ico{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 14%,transparent);color:var(--c);flex:none}
+.ico svg{width:24px;height:24px}
+@media (prefers-color-scheme:dark){.ico{color:color-mix(in srgb,var(--c) 55%,#fff)}}
+.tile strong{display:block;font-size:1.05rem}
+.tile small{display:block;color:var(--soft);font-size:.88rem;line-height:1.4}
+.tile .cnt{color:var(--deep);font-size:.85rem;font-weight:600;margin-top:auto}
+
+.dgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+.dcard{background:var(--sheet);border:1px solid var(--line);border-radius:14px;padding:18px;text-align:left;display:flex;flex-direction:column;gap:14px;transition:transform .15s,box-shadow .15s,border-color .15s}
+.dcard:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:var(--teal)}
+.dtop{display:flex;gap:14px;align-items:center}
+.avwrap{position:relative;flex:none}
+.avatar{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;color:#fff;font-family:"Iowan Old Style",Palatino,Georgia,serif;font-weight:700;font-size:1.2rem;background:linear-gradient(135deg,var(--c),color-mix(in srgb,var(--c) 65%,#000));flex:none}
+.avatar.big{width:92px;height:92px;font-size:2rem;border:4px solid var(--sheet)}
+.avatar.sm{width:36px;height:36px;font-size:.9rem}
+.vbadge{position:absolute;right:-3px;bottom:-3px;width:22px;height:22px;border-radius:50%;background:var(--teal);color:var(--on);display:grid;place-items:center;border:2px solid var(--sheet)}
+.vbadge svg{width:12px;height:12px;stroke-width:2.6}
+.dname{font-weight:700;font-size:1.08rem;display:block}
+.dtitle{color:var(--soft);font-size:.9rem;display:block;line-height:1.35}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tag{background:var(--mint);color:var(--deep);border-radius:999px;padding:3px 11px;font-size:.8rem;font-weight:600;display:inline-flex;align-items:center;gap:6px}
+.meta{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.88rem;color:var(--soft)}
+.stars{color:var(--amber);letter-spacing:1px}
+.stars .off{opacity:.3}
+.dfoot{display:flex;justify-content:space-between;align-items:flex-end;border-top:1px dashed var(--line);padding-top:12px;margin-top:auto}
+.price strong{font-size:1.35rem;color:var(--deep);font-family:"Iowan Old Style",Palatino,Georgia,serif}
+.price span{color:var(--soft);font-size:.82rem}
+.next{font-size:.88rem;color:var(--deep);font-weight:600}
+
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;counter-reset:h}
+.how div{border-top:3px solid var(--teal);padding-top:16px}
+.how div::before{counter-increment:h;content:counter(h);font-family:"Iowan Old Style",Palatino,Georgia,serif;font-size:2rem;color:var(--teal);display:block;line-height:1}
+.how h3{font-size:1.2rem;margin:8px 0 6px}
+.how p{color:var(--soft);font-size:.96rem}
+@media (max-width:760px){.how{grid-template-columns:1fr;gap:24px}}
+
+.banner{margin:48px 0 8px;border-radius:18px;padding:34px;background:linear-gradient(135deg,var(--hero1),var(--hero2));color:#fff;display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between}
+.banner h2{font-size:1.6rem;margin-bottom:6px}
+.banner p{color:rgba(255,255,255,.85);max-width:30em}
+.btn{background:var(--teal);color:var(--on);border:0;border-radius:10px;padding:14px 22px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-align:center}
+.btn:hover:not(:disabled){background:var(--deep)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.block{width:100%}
+.btn.light{background:#fff;color:#0A3D41}
+.btn.light:hover{background:#E3F2EF}
+.btn.ghost{background:none;color:var(--deep);border:1px solid var(--line)}
+.btn.ghost:hover:not(:disabled){background:var(--mint)}
+.btn.warn{background:none;color:var(--p-no);border:1px solid var(--line)}
+.btn.warn:hover:not(:disabled){background:var(--p-no-bg)}
+.btn.sm{padding:9px 14px;font-size:.9rem}
+
+.pgrid,.bgrid,.agrid{display:grid;grid-template-columns:1fr 340px;gap:32px;align-items:start}
+@media (max-width:900px){.pgrid,.bgrid,.agrid{grid-template-columns:1fr}}
+.pcard{background:var(--sheet);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.pbanner{height:100px;background:linear-gradient(135deg,var(--c),color-mix(in srgb,var(--c) 55%,#000))}
+.pbody{padding:0 24px 24px}
+.phead{display:flex;gap:18px;align-items:flex-end;margin-top:-46px;flex-wrap:wrap}
+.phead h1{font-size:1.8rem}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-radius:12px;margin:22px 0}
+.stats div{padding:14px;text-align:center}
+.stats div+div{border-left:1px solid var(--line)}
+.stats strong{display:block;font-size:1.35rem;font-family:"Iowan Old Style",Palatino,Georgia,serif}
+.stats span{color:var(--soft);font-size:.82rem}
+.pbody h2{font-size:1.2rem;margin:26px 0 10px}
+.facts{display:grid;grid-template-columns:max-content 1fr;gap:8px 20px;font-size:.95rem}
+.facts dt{color:var(--soft)}
+.facts dd{font-weight:600}
+.side{background:var(--sheet);border:1px solid var(--line);border-radius:16px;padding:22px;position:sticky;top:82px;box-shadow:var(--shadow)}
+.side .big{font-size:2rem;font-family:"Iowan Old Style",Palatino,Georgia,serif;font-weight:700;color:var(--deep)}
+.side .big small{font-size:.95rem;color:var(--soft);font-family:system-ui,sans-serif;font-weight:400}
+.side p.note,p.note{font-size:.85rem;color:var(--soft);margin-top:10px}
+.rows .row,.side .row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px dashed var(--line);font-size:.93rem}
+.rows .row span:first-child,.side .row span:first-child{color:var(--soft)}
+.rows .row strong,.side .row strong{text-align:right}
+
+.stepper{list-style:none;display:flex;align-items:center;margin:8px 0 26px}
+.stepper li{display:flex;align-items:center;gap:8px;font-size:.88rem;color:var(--soft);flex:none}
+.stepper li:not(:last-child)::after{content:"";width:48px;height:2px;background:var(--line);margin:0 10px}
+.stepper .n{width:28px;height:28px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-weight:700;font-size:.85rem}
+.stepper li.cur{color:var(--ink);font-weight:700}
+.stepper li.cur .n{border-color:var(--teal);color:var(--deep)}
+.stepper li.done .n{background:var(--teal);border-color:var(--teal);color:var(--on)}
+.stepper li.done::after{background:var(--teal)}
+@media (max-width:560px){.stepper li:not(.cur) .lbl{display:none}.stepper li:not(:last-child)::after{width:24px}}
+
+.bgrid h2{font-size:1.15rem;margin:24px 0 10px}
+.bgrid h2:first-child{margin-top:0}
+.daygrid{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px}
+.daychip{flex:none;min-width:64px;display:flex;flex-direction:column;align-items:center;padding:10px 6px;border:1px solid var(--line);background:var(--sheet);border-radius:12px;line-height:1.25}
+.daychip .w,.daychip .m{font-size:.78rem;color:var(--soft)}
+.daychip .d{font-size:1.35rem;font-weight:700;font-family:"Iowan Old Style",Palatino,Georgia,serif}
+.slotgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:8px}
+.durgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.chip{padding:11px 10px;border:1px solid var(--line);background:var(--sheet);border-radius:12px;font-weight:600;text-align:center}
+.chip small{display:block;font-weight:400;color:var(--soft);font-size:.82rem}
+.chip:hover:not(:disabled):not(.on),.daychip:hover:not(.on){border-color:var(--teal)}
+.on{background:var(--teal)!important;color:var(--on)!important;border-color:var(--teal)!important}
+.on small,.on .w,.on .m{color:var(--on)!important;opacity:.85}
+.sumdoc{display:flex;gap:12px;align-items:center;padding-bottom:14px;border-bottom:1px solid var(--line);margin-bottom:4px}
+.total{display:flex;justify-content:space-between;align-items:baseline;padding:14px 0 6px;font-weight:700}
+.total strong{font-size:1.6rem;color:var(--deep);font-family:"Iowan Old Style",Palatino,Georgia,serif}
+.check{display:flex;gap:10px;align-items:flex-start;margin:14px 0 16px;font-size:.85rem;color:var(--soft)}
+.check input{width:18px;height:18px;margin-top:3px;flex:none;accent-color:var(--teal)}
+
+.panel{background:var(--sheet);border:1px solid var(--line);border-radius:16px;padding:26px}
+.ok{display:flex;gap:10px;align-items:center;background:var(--mint);border-radius:12px;padding:12px 16px;margin-bottom:22px;font-weight:600;color:var(--deep)}
+.fieldlabel{display:block;font-weight:700;margin:22px 0 4px}
+.fieldlabel.first{margin-top:0}
+.hint{color:var(--soft);font-size:.88rem;margin-bottom:10px}
+textarea.ta{width:100%;min-height:130px;padding:12px 13px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink);resize:vertical}
+.drop{display:block;border:2px dashed var(--teal);border-radius:14px;padding:22px 16px;text-align:center;cursor:pointer;background:var(--paper);position:relative}
+.drop:hover{background:var(--mint)}
+.drop input{position:absolute;left:-9999px}
+.drop:focus-within{outline:3px solid var(--pen);outline-offset:2px}
+.drop svg{width:28px;height:28px;color:var(--teal);margin-bottom:4px}
+.drop strong{display:block;color:var(--deep)}
+.drop span{font-size:.86rem;color:var(--soft)}
+.flist{list-style:none;margin-top:12px;display:grid;gap:8px}
+.flist li{display:flex;align-items:center;gap:10px;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:9px 12px;font-size:.92rem}
+.flist li span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.flist button{background:none;border:0;color:var(--soft);font-size:1.2rem;line-height:1;padding:2px 6px}
+
+.ticket{background:var(--sheet);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow)}
+.tband{background:linear-gradient(135deg,var(--hero1),var(--hero2));color:#fff;padding:22px 24px;display:flex;gap:14px;align-items:center}
+.tband .tick{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.18);display:grid;place-items:center;flex:none}
+.tband h1{font-size:1.5rem}
+.tband p{color:rgba(255,255,255,.82);font-size:.92rem}
+.tbody{padding:22px 24px}
+.next-steps{margin:22px 0;list-style:none;display:grid;gap:12px}
+.next-steps li{display:flex;gap:12px;color:var(--soft);font-size:.95rem}
+.next-steps svg{color:var(--teal);margin-top:3px}
+.stack{display:grid;gap:10px}
+
+.hd{padding:40px 0 10px}
+.hd h1{font-size:clamp(1.9rem,4.5vw,2.8rem);margin-bottom:12px;max-width:14em}
+.hd p{color:var(--soft);max-width:34em;font-size:1.08rem}
+.bene{list-style:none;margin:26px 0}
+.bene li{display:flex;gap:16px;padding:16px 0;border-top:1px solid var(--line)}
+.bene li:last-child{border-bottom:1px solid var(--line)}
+.bene strong{display:block}
+.bene span{color:var(--soft);font-size:.94rem}
+.field{margin-bottom:16px}
+.field label{display:block;font-weight:600;font-size:.92rem;margin-bottom:6px}
+.field input,.field select{width:100%;padding:12px 13px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:560px){.two{grid-template-columns:1fr}}
+.err{color:#B3261E;font-size:.88rem;margin-bottom:12px}
+.info{color:var(--deep);background:var(--mint);border-radius:10px;padding:10px 12px;font-size:.9rem;margin-bottom:12px}
+.err:empty,.info:empty{display:none}
+@media (prefers-color-scheme:dark){.err{color:#FF9C94}}
+.empty{color:var(--soft);padding:10px 0}
+.empty-state{padding:44px 10px;text-align:center;color:var(--soft)}
+.loading{padding:70px 10px;text-align:center;color:var(--soft)}
+.spin{width:30px;height:30px;border-radius:50%;border:3px solid var(--line);border-top-color:var(--teal);margin:0 auto 12px;animation:sp .8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+.ov{position:fixed;inset:0;background:rgba(8,20,24,.62);display:grid;place-items:center;z-index:50;padding:16px;overflow-y:auto}
+.dialog{background:var(--sheet);border-radius:20px;width:100%;max-width:450px;padding:28px 26px 24px;box-shadow:0 30px 80px -20px rgba(0,0,0,.6);position:relative;margin:auto}
+.dialog h2{font-size:1.6rem;margin-bottom:4px}
+.dialog .sub{color:var(--soft);font-size:.94rem}
+.xbtn{position:absolute;right:12px;top:12px;width:38px;height:38px;border-radius:50%;border:0;background:none;color:var(--soft);font-size:1.5rem;line-height:1}
+.xbtn:hover{background:var(--mint)}
+.rolebar{display:grid;grid-template-columns:1fr 1fr;background:var(--paper);border-radius:12px;padding:4px;margin:18px 0 20px}
+.rolebar button{padding:10px;border:0;background:none;border-radius:9px;font-weight:700;color:var(--soft)}
+.rolebar button.sel{background:var(--sheet);color:var(--deep);box-shadow:0 1px 5px rgba(0,0,0,.18)}
+.swap{margin-top:16px;text-align:center;font-size:.92rem;color:var(--soft)}
+.swap button,.linkbtn{background:none;border:0;color:var(--deep);font-weight:700;text-decoration:underline;text-underline-offset:3px}
+
+.pill{display:inline-block;padding:3px 11px;border-radius:999px;font-size:.78rem;font-weight:700;white-space:nowrap}
+.pill.pending{background:var(--p-pend-bg);color:var(--p-pend)}
+.pill.confirmed{background:var(--p-ok-bg);color:var(--p-ok)}
+.pill.declined{background:var(--p-no-bg);color:var(--p-no)}
+.pill.completed{background:var(--mint);color:var(--deep)}
+.dhead{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:flex-end;padding-top:30px}
+.dhead h1{font-size:clamp(1.8rem,4vw,2.4rem)}
+.dhead p{color:var(--soft)}
+.dstats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}
+.dstat{background:var(--sheet);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.dstat strong{display:block;font-size:2rem;font-family:"Iowan Old Style",Palatino,Georgia,serif;color:var(--deep);line-height:1.1}
+.dstat span{color:var(--soft);font-size:.88rem}
+.tabs{display:flex;flex-wrap:wrap;gap:2px 6px;border-bottom:1px solid var(--line);margin:26px 0 4px}
+.tabs button{background:none;border:0;padding:12px 14px;font-weight:700;color:var(--soft);border-bottom:3px solid transparent;white-space:nowrap}
+.tabs button.cur{color:var(--deep);border-color:var(--teal)}
+.tabs .n{display:inline-block;min-width:22px;padding:0 7px;margin-left:6px;border-radius:999px;background:var(--mint);color:var(--deep);font-size:.78rem;text-align:center}
+.arow{display:flex;gap:14px;align-items:flex-start;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);padding:18px 6px}
+.arow:hover{background:var(--mint)}
+.arow .main{flex:1;min-width:0;display:block}
+.arow .top2{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;justify-content:space-between}
+.arow .when{color:var(--soft);font-size:.9rem;margin-top:2px;display:block}
+.arow .snip{color:var(--ink);opacity:.85;font-size:.93rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin:8px 0}
+.callout{background:var(--mint);border-radius:12px;padding:12px 16px;font-size:.9rem;color:var(--deep);margin-top:22px}
+
+.agrid h2{font-size:1.2rem;margin:28px 0 10px}
+.agrid h2:first-child{margin-top:0}
+.quote{background:var(--paper);border-left:4px solid var(--teal);padding:14px 16px;border-radius:0 10px 10px 0;white-space:pre-wrap}
+.media{background:var(--sheet);border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px}
+.media .mh{display:flex;gap:8px;align-items:center;font-weight:600;font-size:.92rem}
+.media audio,.media video{width:100%;margin-top:10px;border-radius:10px}
+.media video{max-height:320px;background:#000}
+.rfile{display:flex;gap:12px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:12px;margin-bottom:8px;background:var(--sheet)}
+.rfile img{width:56px;height:56px;object-fit:cover;border-radius:8px;flex:none}
+.rfile .fi{width:56px;height:56px;border-radius:8px;background:var(--mint);color:var(--deep);display:grid;place-items:center;flex:none}
+.rfile .fi svg{width:26px;height:26px}
+.rfile .nm{flex:1;min-width:0;font-weight:600;font-size:.93rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rfile a{color:var(--deep);font-weight:700;font-size:.9rem}
+.side .btn+.btn,.side .btn+p{margin-top:10px}
+.slotrow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.slotform{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;align-items:end;margin:14px 0}
+@media (max-width:560px){.slotform{grid-template-columns:1fr 1fr}.slotform .btn{grid-column:1/-1}}
+.slotform input{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink)}
+.slotform label{font-weight:600;font-size:.85rem;display:block;margin-bottom:4px}
+
+#toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,30px);background:var(--ink);color:var(--paper);padding:12px 20px;border-radius:12px;font-weight:600;font-size:.93rem;opacity:0;pointer-events:none;transition:.25s;z-index:60;max-width:90vw;text-align:center}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+
+footer{margin-top:64px;background:var(--hero1);color:rgba(255,255,255,.82);padding:36px 0 40px;font-size:.88rem}
+footer strong{color:#fff;font-family:"Iowan Old Style",Palatino,Georgia,serif;font-size:1.15rem}
+footer .wrap>*+*{margin-top:10px}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .rise,.spin{animation:none}
+  .ecg path{animation:none;stroke-dashoffset:0}
+  .tile:hover,.dcard:hover{transform:none}
+  #toast{transition:none}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <button class="logo" data-act="go" data-to="home" aria-label="Second Reading home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="12" cy="16" r="9" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="20" cy="16" r="9" fill="none" stroke="currentColor" stroke-width="2.4" opacity=".55"/></svg>
+      Second Reading
+    </button>
+    <nav class="nav" id="nav" aria-label="Main"></nav>
+  </div>
+</header>
+
+<main id="page"></main>
+
+<footer>
+  <div class="wrap">
+    <strong>Second Reading</strong>
+    <p>Second Reading is a placeholder name. Replace it with your registered business name.</p>
+    <p>In an emergency, call 112 or go to the nearest hospital. Doctors give advice based on the records you share and do not replace an in-person examination or your treating doctor.</p>
+  </div>
+</footer>
+
+<div id="modal"></div>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+// ======================================================================
+// SETTINGS
+// ======================================================================
+var SUPABASE_URL = "https://eniqdhtyzsmndxwtroup.supabase.co";
+var SUPABASE_KEY = "sb_publishable_5xrCxF4jr7R4Nix1exZ2BQ_fqkwmRND"; // publishable key: safe to be public
+var TEST_MODE = true;   // true shows "Join now (testing)" buttons. Set to false before launch.
+var MEET_BASE = "https://meet.jit.si/SecondReading-";
+var MAX_FILE_MB = 50;
+
+var sb = null;
+try { sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY); } catch (e) { sb = null; }
+
+// ---------- Icons ----------
+var IC = {
+  gm: '<circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/>',
+  card: '<path d="M12 20s-7-4.4-9-9a5 5 0 0 1 9-3 5 5 0 0 1 9 3c-2 4.6-9 9-9 9z"/>',
+  ortho: '<path d="M7 17L17 7"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/>',
+  onc: '<circle cx="12" cy="12" r="3.5"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/>',
+  neuro: '<path d="M3 12h4l2-6 4 12 2-6h6"/>',
+  gyn: '<circle cx="12" cy="9" r="5"/><path d="M12 14v7M9 18h6"/>',
+  other: '<circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/>',
+  shield: '<path d="M12 3l8 3v6c0 4.5-3.4 7.8-8 9-4.6-1.2-8-4.5-8-9V6l8-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/>',
+  clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  lock: '<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+  search: '<circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>',
+  check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+  upload: '<path d="M12 16V5M7 10l5-5 5 5"/><path d="M5 19h14"/>',
+  file: '<path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/>',
+  mic: '<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>',
+  cam: '<rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3z"/>',
+  rupee: '<path d="M7 5h10M7 9h10M7 5c5 0 7 2 7 4s-2 4-7 4l7 6"/>',
+  cal: '<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/>',
+  doc: '<path d="M7 3h10v18H7z"/><path d="M10 8h4M10 12h4M10 16h2"/>'
+};
+function icon(n) { return '<svg class="i" viewBox="0 0 24 24" aria-hidden="true">' + IC[n] + '</svg>'; }
+function bigIcon(n, c) { return '<span class="ico" style="--c:' + c + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (IC[n] || IC.other) + '</svg></span>'; }
+
+// ---------- Specialities (the doctor's "speciality" text must match one of these names) ----------
+var SPECS = [
+  { id: "gm", name: "General Medicine", note: "Diabetes, BP, fever, general concerns", color: "#0E7C7B" },
+  { id: "card", name: "Cardiology", note: "Heart reports, ECG, chest symptoms", color: "#C2453A" },
+  { id: "ortho", name: "Orthopaedics", note: "Joints, spine, fractures, surgery advice", color: "#3D63B3" },
+  { id: "onc", name: "Oncology", note: "Cancer diagnosis and treatment plans", color: "#8A4F9E" },
+  { id: "neuro", name: "Neurology", note: "Headache, seizures, stroke, nerves", color: "#B9791A" },
+  { id: "gyn", name: "Gynaecology", note: "Women's health and pregnancy", color: "#C4527F" },
+  { id: "peds", name: "Paediatrics", note: "Children's health, growth and infections", color: "#2E8B57" },
+  { id: "derm", name: "Dermatology", note: "Skin, hair and nail problems", color: "#D2691E" },
+  { id: "ent", name: "ENT", note: "Ear, nose and throat", color: "#4682B4" },
+  { id: "eye", name: "Ophthalmology", note: "Eye problems and surgery advice", color: "#5B6ABF" },
+  { id: "psy", name: "Psychiatry", note: "Mental health and sleep", color: "#7A5C99" },
+  { id: "gastro", name: "Gastroenterology", note: "Stomach, liver and digestion", color: "#B5651D" },
+  { id: "nephro", name: "Nephrology", note: "Kidney disease and dialysis", color: "#2F7F86" },
+  { id: "endo", name: "Endocrinology", note: "Diabetes, thyroid and hormones", color: "#A0527C" },
+  { id: "uro", name: "Urology", note: "Kidney stones, prostate, urinary problems", color: "#3F6FA0" },
+  { id: "pulm", name: "Pulmonology", note: "Asthma, COPD and lung reports", color: "#5A8F29" },
+  { id: "ctvs", name: "Cardiothoracic Surgery", note: "Heart and chest surgery advice", color: "#A23B3B" }
+];
+var OTHER = { id: "other", name: "Other", note: "Other specialities", color: "#0E7C7B" };
+var DURATIONS = [10, 20, 30];
+
+// ---------- State ----------
+var S = {
+  screen: "home", loading: false, busy: false,
+  user: null, profile: null, myDoc: null,
+  docs: [], docsLoaded: false,
+  spec: null, doc: null, q: "", sort: "rating",
+  slots: [], dayKey: null, slot: null, dur: 20, agree: false,
+  draft: { text: "", media: [], reports: [] },
+  lastAppt: null, lastFailed: 0,
+  mine: [], dAppts: [], dSlots: [], apptId: null, tab: "req", urls: {},
+  applied: false,
+  authOpen: false, auth: { role: "patient", mode: "in" }, authNext: null, lastFocus: null
+};
+var animate = false, lastScreen = null, toastT = null;
+
+// ---------- Helpers ----------
+function esc(s) { return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
+function pad(n) { return (n < 10 ? "0" : "") + n; }
+function tm(d) { return d.toLocaleTimeString("en-IN", { hour: "numeric", minute: "2-digit", hour12: true }).toLowerCase(); }
+function dayLabel(d) { return d.toLocaleDateString("en-IN", { weekday: "short", day: "numeric", month: "short" }); }
+function fmtWhen(d) { d = new Date(d); return dayLabel(d) + ", " + tm(d); }
+function dkey(d) { d = new Date(d); return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()); }
+function initials(n) { return String(n || "?").replace("Dr. ", "").replace("Prof. ", "").split(" ").filter(Boolean).map(function (w) { return w[0]; }).slice(0, 2).join("").toUpperCase(); }
+function stars(r) { var n = Math.round(r); return '<span class="stars" aria-label="' + r + ' out of 5">' + "★".repeat(n) + '<span class="off">' + "★".repeat(5 - n) + "</span></span>"; }
+function specByName(n) { return SPECS.filter(function (s) { return s.name === n; })[0] || OTHER; }
+function specById(id) { return SPECS.filter(function (s) { return s.id === id; })[0] || OTHER; }
+function docById(id) { return S.docs.filter(function (d) { return d.id === id; })[0]; }
+function isPatient() { return S.profile && S.profile.role === "patient"; }
+function isDoctor() { return S.profile && S.profile.role === "doctor"; }
+function isDemo(d) { return /^DEMO/i.test(d.reg || ""); }
+function ratingText(d) { return d.count > 0 ? stars(d.rating) + " <strong>" + d.rating + "</strong> (" + d.count + ")" : '<span class="tag">New</span>'; }
+function until(ms) {
+  var m = Math.round((new Date(ms) - Date.now()) / 60000);
+  if (m <= 0) return "now";
+  if (m < 60) return "in " + m + " min";
+  if (m < 1440) return "in " + Math.floor(m / 60) + " h " + (m % 60) + " min";
+  var d = Math.floor(m / 1440), h = Math.floor((m % 1440) / 60);
+  return "in " + d + (d > 1 ? " days " : " day ") + h + " h";
+}
+function canJoin(a) {
+  var s = new Date(a.starts_at).getTime(), n = Date.now();
+  return a.status === "confirmed" && s - n <= 5 * 60000 && n - s <= (a.duration_min + 15) * 60000;
+}
+function joinUrl(a) { return MEET_BASE + a.id; }
+function toast(msg) {
+  var t = document.getElementById("toast");
+  t.textContent = msg; t.classList.add("show");
+  clearTimeout(toastT); toastT = setTimeout(function () { t.classList.remove("show"); }, 4200);
+}
+function avatar(d, cls, badge) {
+  return '<div class="avwrap"><div class="avatar ' + (cls || "") + '" style="--c:' + specById(d.spec).color + '" aria-hidden="true">' + esc(initials(d.name)) + "</div>" +
+    (badge ? '<span class="vbadge" title="Registration verified">' + icon("check") + "</span>" : "") + "</div>";
+}
+function pAvatar(name, cls) {
+  var sum = 0, n = name || "?"; for (var i = 0; i < n.length; i++) sum += n.charCodeAt(i);
+  return '<div class="avatar ' + (cls || "") + '" style="--c:' + SPECS[sum % SPECS.length].color + '" aria-hidden="true">' + esc(initials(n)) + "</div>";
+}
+function pill(status, forDoctor) {
+  var label = { pending: forDoctor ? "New request" : "Awaiting doctor", confirmed: "Confirmed", declined: "Declined", completed: "Completed" }[status];
+  return '<span class="pill ' + status + '">' + label + "</span>";
+}
+function loadingHtml(msg) { return '<div class="loading"><div class="spin"></div>' + esc(msg || "Loading") + "</div>"; }
+function backRow(label) { return '<button class="backlink" data-act="back">‹ ' + (label || "Back") + "</button>"; }
+function stepper(cur) {
+  var names = ["Choose a time", "Your problem and reports", "Request sent"];
+  return '<ol class="stepper" aria-label="Booking progress">' + names.map(function (n, i) {
+    var cls = i < cur ? "done" : (i === cur ? "cur" : "");
+    return '<li class="' + cls + '"' + (i === cur ? ' aria-current="step"' : "") + '><span class="n">' + (i < cur ? icon("check") : i + 1) + '</span><span class="lbl">' + n + "</span></li>";
+  }).join("") + "</ol>";
+}
+function errMsg(e) { return (e && e.message) ? e.message : "Something went wrong. Please try again."; }
+
+// ======================================================================
+// DATA
+// ======================================================================
+function mapDoc(r) {
+  var sp = specByName(r.speciality);
+  return { id: r.id, name: r.name, spec: sp.id, speciality: r.speciality, title: r.title || "", exp: r.experience_years || 0,
+    price: r.price_per_min, rating: +r.rating || 0, count: r.review_count || 0, bio: r.bio || "", langs: r.languages || "", reg: r.registration_no };
+}
+async function loadDoctors() {
+  var r = await sb.from("doctors").select("*").order("name");
+  if (r.error) throw r.error;
+  S.docs = (r.data || []).map(mapDoc); S.docsLoaded = true;
+}
+async function loadSlots(docId) {
+  var r1 = await sb.from("slots").select("starts_at").eq("doctor_id", docId).gt("starts_at", new Date().toISOString()).order("starts_at").limit(300);
+  if (r1.error) throw r1.error;
+  var r2 = await sb.rpc("booked_times", { d: docId });
+  var booked = {};
+  (r2.data || []).forEach(function (t) { booked[new Date(t).getTime()] = 1; });
+  S.slots = (r1.data || []).map(function (x) { return new Date(x.starts_at); }).filter(function (d) { return !booked[d.getTime()]; });
+  var keys = slotDays();
+  S.dayKey = keys.length ? keys[0] : null; S.slot = null;
+}
+function slotDays() {
+  var seen = {}, out = [];
+  S.slots.forEach(function (d) { var k = dkey(d); if (!seen[k]) { seen[k] = 1; out.push(k); } });
+  return out.slice(0, 10);
+}
+async function loadMine() {
+  var r = await sb.from("appointments").select("*, doctors(name,title,speciality)").eq("patient_id", S.user.id).order("starts_at");
+  if (r.error) throw r.error;
+  S.mine = r.data || [];
+}
+async function loadDash() {
+  var r = await sb.from("appointments").select("*, profiles(full_name,phone,age), attachments(*)").eq("doctor_id", S.user.id).order("starts_at");
+  if (r.error) throw r.error;
+  S.dAppts = r.data || [];
+  var r2 = await sb.from("slots").select("id,starts_at").eq("doctor_id", S.user.id).gt("starts_at", new Date().toISOString()).order("starts_at").limit(200);
+  S.dSlots = r2.data || [];
+  var r3 = await sb.from("doctors").select("*").eq("id", S.user.id).maybeSingle();
+  S.myDoc = r3.data || null;
+}
+async function loadUrls(a) {
+  var list = (a.attachments || []).filter(function (x) { return !S.urls[x.file_path]; });
+  for (var i = 0; i < list.length; i++) {
+    var r = await sb.storage.from("records").createSignedUrl(list[i].file_path, 3600);
+    if (r.data) S.urls[list[i].file_path] = r.data.signedUrl;
+  }
+  if (S.screen === "appt" && S.apptId === a.id) render();
+}
+async function loadProfile() {
+  var r = await sb.from("profiles").select("*").eq("id", S.user.id).maybeSingle();
+  S.profile = r.data || null;
+}
+
+// ======================================================================
+// PUBLIC SCREENS
+// ======================================================================
+function docCard(d) {
+  var sp = specById(d.spec);
+  return '<button class="dcard" data-act="doc" data-id="' + d.id + '">' +
+    '<span class="dtop">' + avatar(d, "", true) + '<span><span class="dname">' + esc(d.name) + '</span><span class="dtitle">' + esc(d.title) + "</span></span></span>" +
+    '<span class="tags"><span class="tag">' + esc(sp.name === "Other" ? d.speciality : sp.name) + '</span>' + (d.langs ? '<span class="tag">' + esc(d.langs.split(",")[0]) + "</span>" : "") + (isDemo(d) ? '<span class="tag">Demo profile</span>' : "") + "</span>" +
+    '<span class="meta"><span>' + ratingText(d) + "</span>" + (d.exp > 0 ? "<span>" + d.exp + " years experience</span>" : "") + "</span>" +
+    '<span class="dfoot"><span class="price"><strong>₹' + d.price + "</strong> <span>per min</span></span><span class=\"next\">View times ›</span></span></button>";
+}
+function tile(s) {
+  var n = S.docs.filter(function (d) { return d.spec === s.id; }).length;
+  return '<button class="tile" data-act="spec" data-id="' + s.id + '">' + bigIcon(s.id, s.color) + "<span><strong>" + esc(s.name) + "</strong><small>" + esc(s.note) + '</small></span><span class="cnt">' + n + (n === 1 ? " doctor" : " doctors") + "</span></button>";
+}
+
+function resultsHtml() {
+  if (S.loading && !S.docsLoaded) return loadingHtml("Loading doctors");
+  var ql = S.q.trim().toLowerCase();
+  var allSpecs = SPECS.concat([OTHER]).filter(function (s) { return S.docs.some(function (d) { return d.spec === s.id; }); });
+  if (!S.docs.length) {
+    return '<section class="sec"><div class="wrap"><div class="empty-state"><h2 style="margin-bottom:8px">Doctors are joining soon</h2><p>We are verifying our first doctors. Please check back shortly.</p></div></div></section>';
+  }
+  if (!ql) {
+    var top = S.docs.slice().sort(function (a, b) { return b.rating - a.rating || b.count - a.count; }).slice(0, 4);
+    return '<section class="sec"><div class="wrap"><h2>Browse by speciality</h2><p class="sub">Choose the kind of doctor you need to talk to.</p><div class="tiles">' + allSpecs.map(tile).join("") + "</div></div></section>" +
+      '<section class="sec"><div class="wrap"><h2>Our doctors</h2><p class="sub">Registered medical practitioners, verified by us.</p><div class="dgrid">' + top.map(docCard).join("") + "</div></div></section>" +
+      '<section class="sec"><div class="wrap"><h2>How it works</h2><p class="sub">From choosing a doctor to the call, in three steps.</p>' +
+      '<div class="how"><div><h3>Choose a doctor</h3><p>Browse by speciality. See each doctor\'s experience and price per minute.</p></div>' +
+      '<div><h3>Book a time and share your problem</h3><p>Pick a slot, then describe your problem and upload reports, a voice note or a video. The doctor confirms the booking.</p></div>' +
+      '<div><h3>Talk it through</h3><p>The doctor joins the call at your time.</p></div></div>' +
+      '<div class="banner"><div><h2>Are you a registered doctor?</h2><p>Set your own price, open the slots that suit you and advise patients from anywhere.</p></div><button class="btn light" data-act="go" data-to="doctors">Join as a doctor</button></div></div></section>';
+  }
+  var specs = allSpecs.filter(function (s) { return s.name.toLowerCase().indexOf(ql) > -1 || s.note.toLowerCase().indexOf(ql) > -1; });
+  var docs = S.docs.filter(function (d) { return (d.name + " " + d.bio + " " + d.title + " " + d.speciality).toLowerCase().indexOf(ql) > -1; });
+  var out = '<section class="sec"><div class="wrap">';
+  if (!specs.length && !docs.length) out += '<p class="empty">Nothing matches that. Try a speciality like cardiology, or a condition like diabetes.</p>';
+  if (docs.length) out += '<h2>Doctors</h2><p class="sub">' + docs.length + ' found</p><div class="dgrid">' + docs.map(docCard).join("") + "</div>";
+  if (specs.length) out += '<h2 style="margin-top:36px">Specialities</h2><p class="sub">' + specs.length + ' found</p><div class="tiles">' + specs.map(tile).join("") + "</div>";
+  return out + "</div></section>";
+}
+
+function homeHtml() {
+  return '<section class="hero"><div class="wrap"><h1>Talk to a doctor about your reports.</h1>' +
+    '<p class="lead">Choose a registered doctor, book a time, share your reports and talk it through.</p>' +
+    '<label class="sr" for="search">Search</label><div class="searchbox">' + icon("search") + '<input id="search" type="search" placeholder="Search a speciality, condition or doctor" value="' + esc(S.q) + '" autocomplete="off"></div>' +
+    '<div class="trust"><span>' + icon("shield") + 'Registered doctors only</span><span>' + icon("clock") + 'Book a fixed time</span><span>' + icon("lock") + 'Private and secure</span></div></div>' +
+    '<svg class="ecg" viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 50 H300 L330 50 L350 20 L380 80 L405 8 L430 60 L450 50 H700 L730 50 L750 24 L778 76 L800 14 L825 56 L845 50 H1200"/></svg></section>' +
+    '<div id="results">' + resultsHtml() + "</div>";
+}
+
+function listHtml() {
+  var sp = S.spec;
+  var l = S.docs.filter(function (d) { return d.spec === sp.id; });
+  l.sort(function (a, b) { return S.sort === "price" ? a.price - b.price : b.rating - a.rating; });
+  return '<div class="wrap">' + backRow() +
+    '<div style="display:flex;align-items:center;gap:14px;margin:6px 0 4px">' + bigIcon(sp.id, sp.color) + '<h1 style="font-size:2rem">' + esc(sp.name) + "</h1></div>" +
+    '<p style="color:var(--soft);margin-bottom:18px">' + esc(sp.note) + ". " + l.length + (l.length === 1 ? " doctor" : " doctors") + " available.</p>" +
+    '<div style="display:flex;gap:10px;align-items:center;margin-bottom:18px;font-size:.92rem"><label for="sort">Sort by</label>' +
+    '<select id="sort" style="padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--sheet);color:var(--ink)">' +
+    '<option value="rating"' + (S.sort === "rating" ? " selected" : "") + ">Highest rated</option>" +
+    '<option value="price"' + (S.sort === "price" ? " selected" : "") + ">Lowest price per minute</option></select></div>" +
+    '<div class="dgrid">' + l.map(docCard).join("") + "</div></div>";
+}
+
+function doctorHtml() {
+  var d = S.doc, sp = specById(d.spec);
+  var bookBtn = isDoctor()
+    ? '<button class="btn block" style="margin-top:8px" disabled>Sign in as a patient to book</button>'
+    : '<button class="btn block" style="margin-top:8px" data-act="bookgo">Book an appointment</button>';
+  var note = isPatient() ? "You will describe your problem and upload reports after choosing a time." : "You will be asked to sign in or create a free account first.";
+  return '<div class="wrap">' + backRow() + '<div class="pgrid"><div class="pcard"><div class="pbanner" style="--c:' + sp.color + '"></div><div class="pbody">' +
+    '<div class="phead">' + avatar(d, "big", true) + '<div><h1>' + esc(d.name) + '</h1><span class="dtitle" style="font-size:1rem">' + esc(d.title) + "</span></div></div>" +
+    '<div class="tags" style="margin-top:14px"><span class="tag">' + esc(d.speciality) + '</span>' + (isDemo(d) ? '<span class="tag">Demo profile</span>' : '<span class="tag">Registration verified</span>') + '</div>' +
+    '<div class="stats"><div><strong>' + (d.count > 0 ? d.rating : "New") + '</strong><span>Rating</span></div><div><strong>' + (d.exp > 0 ? d.exp : "&mdash;") + '</strong><span>Years experience</span></div><div><strong>' + d.count + '</strong><span>Reviews</span></div></div>' +
+    "<h2>About</h2><p>" + (d.bio ? esc(d.bio) : esc(d.name) + " is a registered medical practitioner on Second Reading.") + "</p>" +
+    '<h2>Details</h2><dl class="facts">' + (d.langs ? "<dt>Languages</dt><dd>" + esc(d.langs) + "</dd>" : "") + (d.reg ? "<dt>Registration</dt><dd>" + esc(d.reg) + "</dd>" : "") + "</dl>" +
+    "<h2>Patient reviews</h2><p class=\"hint\">Reviews will appear here after patients complete their calls.</p>" +
+    '</div></div><aside class="side"><div class="big">₹' + d.price + ' <small>per minute</small></div>' +
+    (d.langs ? '<div class="row"><span>Language</span><strong>' + esc(d.langs.split(",")[0]) + "</strong></div>" : "") +
+    (d.exp > 0 ? '<div class="row" style="border-bottom:0"><span>Experience</span><strong>' + d.exp + " years</strong></div>" : "") + bookBtn +
+    '<p class="note">' + note + "</p></aside></div></div>";
+}
+
+// ======================================================================
+// PATIENT BOOKING
+// ======================================================================
+function bookHtml() {
+  var d = S.doc;
+  if (S.loading) return '<div class="wrap">' + backRow() + loadingHtml("Loading available times") + "</div>";
+  var keys = slotDays(), cost = d.price * S.dur;
+  var times = S.slots.filter(function (x) { return dkey(x) === S.dayKey; });
+  var pick;
+  if (!keys.length) pick = '<div class="empty-state"><p>This doctor has no open times right now. Please check back soon.</p></div>';
+  else {
+    pick = "<h2>Choose a day</h2>" + '<div class="daygrid" role="group" aria-label="Choose a day">' + keys.map(function (k) {
+      var dt = S.slots.filter(function (x) { return dkey(x) === k; })[0];
+      return '<button id="day-' + k + '" class="daychip' + (S.dayKey === k ? " on" : "") + '" data-act="day" data-k="' + k + '"><span class="w">' + dt.toLocaleDateString("en-IN", { weekday: "short" }) + '</span><span class="d">' + dt.getDate() + '</span><span class="m">' + dt.toLocaleDateString("en-IN", { month: "short" }) + "</span></button>";
+    }).join("") + "</div>" +
+      "<h2>Choose a time</h2>" + '<div class="slotgrid" role="group" aria-label="Choose a time">' + times.map(function (t) {
+        var iso = t.toISOString();
+        return '<button id="slot-' + t.getTime() + '" class="chip' + (S.slot === iso ? " on" : "") + '" data-act="slot" data-t="' + iso + '">' + tm(t) + "</button>";
+      }).join("") + "</div>" +
+      "<h2>Call length</h2>" + '<div class="durgrid" role="group" aria-label="Choose call length">' + DURATIONS.map(function (m) {
+        return '<button id="dur-' + m + '" class="chip' + (S.dur === m ? " on" : "") + '" data-act="dur" data-m="' + m + '">' + m + " min<small>₹" + (m * d.price) + "</small></button>";
+      }).join("") + "</div>";
+  }
+  return '<div class="wrap">' + backRow() + stepper(0) + '<div class="bgrid"><div>' + pick + "</div>" +
+    '<aside class="side"><div class="sumdoc">' + avatar(d, "", true) + '<div><span class="dname">' + esc(d.name) + '</span><span class="dtitle">' + esc(d.title) + "</span></div></div>" +
+    '<div class="row"><span>When</span><strong>' + (S.slot ? fmtWhen(S.slot) : "Choose a time") + "</strong></div>" +
+    '<div class="row"><span>Length</span><strong>' + S.dur + " minutes</strong></div>" +
+    '<div class="row"><span>Rate</span><strong>₹' + d.price + " per minute</strong></div>" +
+    '<div class="total"><span>Fee</span><strong>₹' + cost + "</strong></div>" +
+    '<p class="note" style="margin:0 0 6px">Online payment is not switched on yet, so you will not be charged during testing.</p>' +
+    '<label class="check"><input type="checkbox" id="agree"' + (S.agree ? " checked" : "") + '><span>I consent to a video or audio consultation and to sharing my health information with this doctor. I understand this is not for emergencies.</span></label>' +
+    '<button class="btn block" data-act="go" data-to="details"' + (!S.slot || !S.agree ? " disabled" : "") + ">" + (S.slot ? "Continue" : "Choose a time to continue") + "</button></aside></div></div>";
+}
+
+function fileList(arr, act) {
+  if (!arr.length) return "";
+  return '<ul class="flist">' + arr.map(function (f, i) {
+    return "<li>" + icon(f.kind === "audio" ? "mic" : (f.kind === "video" ? "cam" : "file")) + "<span>" + esc(f.name) + '</span><button data-act="' + act + '" data-i="' + i + '" aria-label="Remove ' + esc(f.name) + '">×</button></li>';
+  }).join("") + "</ul>";
+}
+function draftReady() { return S.draft.text.trim().length >= 3 || S.draft.media.length > 0; }
+
+function detailsHtml() {
+  var d = S.doc;
+  return '<div class="wrap narrow"><div style="padding-top:22px">' + stepper(1) +
+    '<div class="ok">' + icon("check") + "Time chosen: " + fmtWhen(S.slot) + ".</div>" +
+    '<div class="panel"><h1 style="font-size:1.7rem;margin-bottom:6px">Tell the doctor about your problem</h1>' +
+    '<p class="hint" style="margin-bottom:22px">' + esc(d.name) + " will read this before the call. Use any of the options below.</p>" +
+    '<label class="fieldlabel first" for="complaint">Describe your problem</label>' +
+    '<p class="hint">What you feel, since when, medicines you take, and what your doctor advised.</p>' +
+    '<textarea id="complaint" class="ta" placeholder="Write here">' + esc(S.draft.text) + "</textarea>" +
+    '<span class="fieldlabel">Add a voice note or video <small style="font-weight:400;color:var(--soft)">(optional)</small></span>' +
+    '<p class="hint">Easier to say it than write it? Record on your phone and attach it. Up to ' + MAX_FILE_MB + " MB per file.</p>" +
+    '<label class="drop">' + icon("mic") + '<input type="file" id="mediapick" multiple accept="audio/*,video/*"><strong>Tap to add audio or video</strong><span>The doctor can play it before the call</span></label>' +
+    fileList(S.draft.media, "rmmedia") +
+    '<span class="fieldlabel">Upload reports <small style="font-weight:400;color:var(--soft)">(optional)</small></span>' +
+    '<p class="hint">Lab reports, scans, prescriptions, discharge summaries. No reports yet? That is fine, you can talk to the doctor directly.</p>' +
+    '<label class="drop">' + icon("upload") + '<input type="file" id="reportpick" multiple accept=".pdf,image/*"><strong>Tap to choose files</strong><span>PDF, JPG or PNG</span></label>' +
+    fileList(S.draft.reports, "rmreport") +
+    '<button id="submit" class="btn block" style="margin-top:24px" data-act="submit"' + (!draftReady() || S.busy ? " disabled" : "") + ">" + (S.busy ? "Sending, please wait" : "Send request to doctor") + "</button></div></div></div>";
+}
+
+function doneHtml() {
+  var a = S.lastAppt, d = S.doc;
+  return '<div class="wrap narrow"><div style="padding-top:22px">' + stepper(3) +
+    '<div class="ticket"><div class="tband"><span class="tick">' + icon("check") + '</span><div><h1>Request sent</h1><p>' + esc(d.name) + " will confirm your appointment.</p></div></div>" +
+    '<div class="tbody"><div class="sumdoc">' + avatar(d, "", true) + '<div><span class="dname">' + esc(d.name) + '</span><span class="dtitle">' + esc(d.title) + "</span></div></div>" +
+    '<div class="rows"><div class="row"><span>When</span><strong>' + fmtWhen(a.starts_at) + "</strong></div>" +
+    '<div class="row"><span>Length</span><strong>' + a.duration_min + " minutes</strong></div>" +
+    '<div class="row"><span>Fee</span><strong>₹' + a.fee + "</strong></div>" +
+    '<div class="row" style="border-bottom:0"><span>Status</span><strong>' + pill(a.status) + "</strong></div></div>" +
+    (S.lastFailed ? '<p class="err" style="margin-top:12px;display:block">' + S.lastFailed + " file(s) could not be uploaded. Please tell the doctor on the call.</p>" : "") +
+    '<ul class="next-steps"><li>' + icon("clock") + "<span>The doctor reviews your request and confirms it. Check My appointments for the status.</span></li>" +
+    "<li>" + icon("cam") + "<span>Once confirmed, a Join button appears 5 minutes before the start.</span></li></ul>" +
+    '<div class="stack"><button class="btn" data-act="go" data-to="mine">View my appointments</button><button class="btn ghost" data-act="again">Book another appointment</button></div>' +
+    "</div></div></div></div>";
+}
+
+function mineHtml() {
+  if (S.loading) return '<div class="wrap narrow">' + loadingHtml("Loading your appointments") + "</div>";
+  var body = S.mine.length ? S.mine.map(function (a) {
+    var dn = a.doctors ? a.doctors.name : "Doctor", dt = a.doctors ? a.doctors.title : "", extra = "";
+    if (a.status === "pending") extra = '<p class="hint" style="margin:10px 0 0">Waiting for ' + esc(dn) + " to confirm.</p>";
+    else if (a.status === "declined") extra = '<p class="hint" style="margin:10px 0 0">The doctor could not take this appointment. Please book another time.</p>';
+    else if (a.status === "confirmed") extra = '<div style="margin-top:12px;display:grid;gap:8px;max-width:340px">' +
+      (canJoin(a) ? '<button class="btn" data-act="join" data-id="' + a.id + '">' + icon("cam") + "Join call</button>" : '<button class="btn" disabled>' + icon("cam") + "Join opens 5 minutes before</button>") +
+      (TEST_MODE ? '<button class="btn ghost" data-act="join" data-id="' + a.id + '">Join now (testing)</button>' : "") + "</div>" +
+      '<p class="hint" style="margin:8px 0 0">Starts ' + until(a.starts_at) + ".</p>";
+    else extra = '<p class="hint" style="margin:10px 0 0">Call completed.</p>';
+    return '<div class="panel" style="margin-bottom:14px"><div style="display:flex;gap:12px;align-items:flex-start">' + pAvatar(dn) +
+      '<div style="flex:1"><div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap"><span class="dname">' + esc(dn) + "</span>" + pill(a.status) + '</div><span class="dtitle">' + esc(dt) + '</span><span class="dtitle" style="margin-top:4px;color:var(--ink)">' + fmtWhen(a.starts_at) + ", " + a.duration_min + " minutes, ₹" + a.fee + "</span></div></div>" + extra + "</div>";
+  }).join("") : '<div class="empty-state"><p style="margin-bottom:14px">You have no appointments yet.</p><button class="btn" data-act="go" data-to="home">Find a doctor</button></div>';
+  return '<div class="wrap narrow"><div class="dhead"><div><h1>My appointments</h1><p>Hello, ' + esc(S.profile.full_name || "there") + '.</p></div><div style="display:flex;gap:8px"><button class="btn ghost sm" data-act="refresh">Refresh</button><button class="btn ghost sm" data-act="signout">Sign out</button></div></div><div style="margin-top:22px">' + body + "</div></div>";
+}
+
+// ======================================================================
+// DOCTOR DASHBOARD
+// ======================================================================
+function attBadges(a) {
+  var at = a.attachments || [], b = [];
+  if (a.complaint_text) b.push('<span class="tag">' + icon("doc") + "Written note</span>");
+  var au = at.filter(function (x) { return x.kind === "audio"; }).length, vi = at.filter(function (x) { return x.kind === "video"; }).length, rp = at.filter(function (x) { return x.kind === "report"; }).length;
+  if (au) b.push('<span class="tag">' + icon("mic") + au + " audio</span>");
+  if (vi) b.push('<span class="tag">' + icon("cam") + vi + " video</span>");
+  if (rp) b.push('<span class="tag">' + icon("file") + rp + " report" + (rp > 1 ? "s" : "") + "</span>");
+  return '<span class="tags" style="display:flex">' + b.join("") + "</span>";
+}
+function pName(a) { return a.profiles && a.profiles.full_name ? a.profiles.full_name : "Patient"; }
+
+function slotsTabHtml() {
+  var price = S.myDoc ? S.myDoc.price_per_min : "";
+  return '<div style="padding-top:18px"><h2 style="font-size:1.2rem;margin-bottom:6px">Your price</h2>' +
+    '<p class="hint">Price per minute, in rupees. Patients see this on your profile.</p>' +
+    '<div class="slotform" style="grid-template-columns:1fr auto"><div><label for="price">Price per minute (₹)</label><input id="price" type="number" min="1" value="' + esc(price) + '"></div><button class="btn" data-act="saveprice">Save price</button></div>' +
+    '<h2 style="font-size:1.2rem;margin:26px 0 6px">Open a time slot</h2><p class="hint">Patients can book only the times you add here. Add a start time, for example 6:00 pm.</p>' +
+    '<div class="slotform"><div><label for="sl-date">Date</label><input id="sl-date" type="date"></div><div><label for="sl-time">Start time</label><input id="sl-time" type="time"></div><button class="btn" data-act="addslot">Add slot</button></div>' +
+    '<h2 style="font-size:1.2rem;margin:26px 0 6px">Your upcoming slots</h2>' +
+    (S.dSlots.length ? S.dSlots.map(function (s) { return '<div class="slotrow"><span>' + fmtWhen(s.starts_at) + '</span><button class="btn warn sm" data-act="delslot" data-id="' + s.id + '">Remove</button></div>'; }).join("") : '<p class="hint">No upcoming slots yet.</p>') + "</div>";
+}
+
+function dashHtml() {
+  if (S.loading) return '<div class="wrap">' + loadingHtml("Loading your dashboard") + "</div>";
+  if (!S.myDoc) {
+    return '<div class="wrap narrow"><div class="empty-state"><h2 style="margin-bottom:8px">Your doctor profile is not set up yet</h2><p>Your account is marked as a doctor, but the profile is missing. Please contact the Second Reading team.</p><div style="margin-top:16px"><button class="btn ghost" data-act="signout">Sign out</button></div></div></div>';
+  }
+  var all = S.dAppts, now = Date.now();
+  var req = all.filter(function (a) { return a.status === "pending"; });
+  var up = all.filter(function (a) { return a.status === "confirmed"; });
+  var past = all.filter(function (a) { return a.status === "completed" || a.status === "declined"; }).reverse();
+  var cur = { req: req, up: up, past: past }[S.tab];
+  var empty = { req: "No new requests right now.", up: "No confirmed appointments yet.", past: "Nothing here yet." }[S.tab];
+  var rows = "";
+  if (S.tab !== "slots") {
+    rows = cur.length ? cur.map(function (a) {
+      return '<button class="arow" data-act="open" data-id="' + a.id + '">' + pAvatar(pName(a)) +
+        '<span class="main"><span class="top2"><span class="dname">' + esc(pName(a)) + "</span>" + pill(a.status, true) + "</span>" +
+        '<span class="when">' + fmtWhen(a.starts_at) + ", " + a.duration_min + " minutes, ₹" + a.fee + (a.status === "confirmed" ? ", starts " + until(a.starts_at) : "") + "</span>" +
+        '<span class="snip">' + esc(a.complaint_text || "No written note. See the audio or video attached.") + "</span>" + attBadges(a) + "</span></button>";
+    }).join("") : '<div class="empty-state">' + empty + "</div>";
+  }
+  function tab(k, label, n) { return '<button role="tab" aria-selected="' + (S.tab === k) + '" class="' + (S.tab === k ? "cur" : "") + '" data-act="tab" data-t="' + k + '">' + label + (n != null ? '<span class="n">' + n + "</span>" : "") + "</button>"; }
+  return '<div class="wrap"><div class="dhead"><div><h1>Your appointments</h1><p>' + esc(S.myDoc.name) + ', ₹' + S.myDoc.price_per_min + ' per minute</p></div>' +
+    '<div style="display:flex;gap:8px"><button class="btn ghost sm" data-act="refresh">Refresh</button><button class="btn ghost sm" data-act="signout">Sign out</button></div></div>' +
+    '<div class="dstats"><div class="dstat"><strong>' + req.length + "</strong><span>New requests</span></div><div class=\"dstat\"><strong>" + up.length + "</strong><span>Confirmed upcoming</span></div><div class=\"dstat\"><strong>" + past.length + "</strong><span>Past</span></div></div>" +
+    (S.dSlots.length === 0 && S.tab !== "slots" ? '<div class="callout"><strong>You have no open time slots.</strong> Patients cannot book you until you add some. <button class="linkbtn" data-act="tab" data-t="slots">Add time slots</button></div>' : "") +
+    '<div class="tabs" role="tablist">' + tab("req", "New requests", req.length) + tab("up", "Upcoming", up.length) + tab("past", "Past", past.length) + tab("slots", "Slots and price", null) + "</div>" +
+    (S.tab === "slots" ? slotsTabHtml() : "<div>" + rows + "</div>") + "</div>";
+}
+
+function attItem(x) {
+  var url = S.urls[x.file_path];
+  if (x.kind === "audio" || x.kind === "video") {
+    var player = url ? (x.kind === "video" ? '<video controls playsinline src="' + url + '"></video>' : '<audio controls src="' + url + '"></audio>') : '<p class="hint" style="margin:8px 0 0">Loading</p>';
+    return '<div class="media"><div class="mh">' + icon(x.kind === "video" ? "cam" : "mic") + esc(x.file_name) + "</div>" + player + "</div>";
+  }
+  var isImg = /\.(jpe?g|png|gif|webp|heic)$/i.test(x.file_name);
+  var thumb = isImg && url ? '<img src="' + url + '" alt="">' : '<span class="fi">' + icon("file") + "</span>";
+  return '<div class="rfile">' + thumb + '<span class="nm">' + esc(x.file_name) + "</span>" + (url ? '<a href="' + url + '" target="_blank" rel="noopener">Open</a>' : '<span class="hint" style="margin:0">Loading</span>') + "</div>";
+}
+
+function apptHtml() {
+  var a = S.dAppts.filter(function (x) { return x.id === S.apptId; })[0];
+  if (!a) return '<div class="wrap">' + backRow("Back to appointments") + '<div class="empty-state">Appointment not found.</div></div>';
+  var panel = "", at = a.attachments || [];
+  if (a.status === "pending") {
+    panel = '<h2 style="font-size:1.2rem;margin:0 0 6px">New request</h2><p class="hint">Read the problem and reports, then confirm or decline.</p>' +
+      '<button class="btn block" data-act="confirm" data-id="' + a.id + '">' + icon("check") + "Confirm appointment</button>" +
+      '<button class="btn warn block" data-act="decline" data-id="' + a.id + '">Decline</button>' +
+      '<p class="note">If you decline, the patient is asked to choose another time.</p>';
+  } else if (a.status === "confirmed") {
+    panel = '<h2 style="font-size:1.2rem;margin:0 0 6px">Confirmed</h2><p class="hint">Starts ' + until(a.starts_at) + ". The Join button opens 5 minutes before the start.</p>" +
+      (canJoin(a) ? '<button class="btn block" data-act="join" data-id="' + a.id + '">' + icon("cam") + "Join call</button>" : '<button class="btn block" disabled>' + icon("cam") + "Join call</button>") +
+      (TEST_MODE ? '<button class="btn ghost block" data-act="join" data-id="' + a.id + '">Join now (testing)</button>' : "") +
+      '<button class="btn ghost block" data-act="complete" data-id="' + a.id + '">Mark as completed</button>';
+  } else if (a.status === "completed") panel = '<h2 style="font-size:1.2rem;margin:0 0 6px">Completed</h2><p class="hint">This call has finished.</p>';
+  else panel = '<h2 style="font-size:1.2rem;margin:0 0 6px">Declined</h2><p class="hint">You declined this request.</p>';
+  var media = at.filter(function (x) { return x.kind !== "report"; }), reps = at.filter(function (x) { return x.kind === "report"; });
+  var p = a.profiles || {};
+  return '<div class="wrap">' + backRow("Back to appointments") +
+    '<div class="dhead" style="padding-top:8px"><div style="display:flex;gap:16px;align-items:center">' + pAvatar(pName(a), "big") +
+    "<div><h1>" + esc(pName(a)) + "</h1><p>" + (p.age ? "Age " + esc(p.age) + ", " : "") + esc(p.phone || "") + "</p></div></div>" + pill(a.status, true) + "</div>" +
+    '<div class="agrid" style="margin-top:28px"><div><h2>Appointment</h2><div class="rows"><div class="row"><span>When</span><strong>' + fmtWhen(a.starts_at) + "</strong></div>" +
+    '<div class="row"><span>Length</span><strong>' + a.duration_min + " minutes</strong></div><div class=\"row\"><span>Fee</span><strong>₹" + a.fee + "</strong></div></div>" +
+    "<h2>Problem described by the patient</h2>" + (a.complaint_text ? '<div class="quote">' + esc(a.complaint_text) + "</div>" : '<p class="hint">The patient did not write a note. See the audio or video below.</p>') +
+    "<h2>Voice and video notes</h2>" + (media.length ? media.map(attItem).join("") : '<p class="hint">None attached.</p>') +
+    "<h2>Reports</h2>" + (reps.length ? reps.map(attItem).join("") : '<p class="hint">No reports uploaded. Ask the patient directly on the call.</p>') +
+    '</div><aside class="side">' + panel + "</aside></div></div>";
+}
+
+// ======================================================================
+// DOCTOR APPLICATION
+// ======================================================================
+function doctorsHtml() {
+  var benefits = [
+    ["rupee", "Set your own price per minute", "You decide what your time is worth. Change it whenever you like."],
+    ["cal", "Open only the slots that suit you", "Patients can book only the times you have opened."],
+    ["doc", "Read the patient's problem first", "Notes, voice and video messages and reports reach you before the call."],
+    ["shield", "Verified listing", "We check your registration with the State Medical Council or NMC before your profile goes live."]
+  ];
+  var form = S.applied
+    ? '<div class="ok" role="status">' + icon("check") + "Thanks. We will verify your registration and contact you within a few working days.</div>"
+    : '<div class="field"><label for="a-name">Full name</label><input id="a-name" type="text" autocomplete="name"></div>' +
+      '<div class="two"><div class="field"><label for="a-spec">Speciality</label><select id="a-spec">' + SPECS.map(function (s) { return "<option>" + s.name + "</option>"; }).join("") + "<option>Other</option></select></div>" +
+      '<div class="field"><label for="a-exp">Years of experience</label><input id="a-exp" type="text" inputmode="numeric"></div></div>' +
+      '<div class="two"><div class="field"><label for="a-reg">Registration number</label><input id="a-reg" type="text"></div>' +
+      '<div class="field"><label for="a-council">Medical council</label><input id="a-council" type="text" placeholder="e.g. Telangana Medical Council"></div></div>' +
+      '<div class="two"><div class="field"><label for="a-phone">Phone or WhatsApp</label><input id="a-phone" type="tel" inputmode="tel" autocomplete="tel"></div>' +
+      '<div class="field"><label for="a-email">Email</label><input id="a-email" type="email" autocomplete="email"></div></div>' +
+      '<p class="err" id="a-err" role="alert"></p><button class="btn block" data-act="apply"' + (S.busy ? " disabled" : "") + ">Apply to join</button>";
+  return '<div class="wrap narrow">' + backRow() + '<div class="hd"><h1>Advise patients online, on your terms.</h1>' +
+    "<p>Join as a registered medical practitioner. Set your price and your hours, and talk to patients after reading their problem and reports.</p>" +
+    '<p style="margin-top:12px">Already registered with us? <button class="linkbtn" data-act="signin-doc">Doctor sign in</button></p></div>' +
+    '<ul class="bene">' + benefits.map(function (b) { return "<li>" + bigIcon(b[0], "var(--teal)") + "<div><strong>" + b[1] + "</strong><span>" + b[2] + "</span></div></li>"; }).join("") + "</ul>" +
+    '<div class="panel"><h2 style="font-size:1.4rem;margin-bottom:16px">Apply to join</h2>' + form + "</div></div>";
+}
+
+// ======================================================================
+// HEADER + SIGN-IN WINDOW
+// ======================================================================
+function renderHeader() {
+  var h = '<button class="hide-sm" data-act="go" data-to="home">Find a doctor</button>';
+  if (!S.profile) h += '<button class="hide-sm" data-act="go" data-to="doctors">For doctors</button><button class="join" data-act="signin">Sign in</button>';
+  else if (isPatient()) h += '<button class="join" data-act="go" data-to="mine">My appointments</button><button class="hide-sm" data-act="signout">Sign out</button>';
+  else h += '<button class="join" data-act="go" data-to="dash">Dashboard</button><button class="hide-sm" data-act="signout">Sign out</button>';
+  document.getElementById("nav").innerHTML = h;
+}
+
+function authHtml() {
+  var A = S.auth, isP = A.role === "patient", title, sub, body, swap = "";
+  if (isP) {
+    title = A.mode === "in" ? "Welcome back" : "Create your account";
+    sub = A.mode === "in" ? "Sign in to book and manage appointments." : "Sign up in a minute to book a doctor.";
+    body = (A.mode === "up" ? '<div class="field"><label for="au-name">Full name</label><input id="au-name" type="text" autocomplete="name"></div>' +
+      '<div class="two"><div class="field"><label for="au-phone">Mobile number</label><input id="au-phone" type="tel" inputmode="tel" autocomplete="tel"></div><div class="field"><label for="au-age">Age <small>(optional)</small></label><input id="au-age" type="text" inputmode="numeric"></div></div>' : "") +
+      '<div class="field"><label for="au-email">Email</label><input id="au-email" type="email" autocomplete="email"></div>' +
+      '<div class="field"><label for="au-pass">Password' + (A.mode === "up" ? ' <small>(at least 6 characters)</small>' : "") + '</label><input id="au-pass" type="password" autocomplete="' + (A.mode === "up" ? "new-password" : "current-password") + '"></div>' +
+      '<p class="info" id="au-info" role="status"></p><p class="err" id="au-err" role="alert"></p>' +
+      '<button class="btn block" data-act="auth-submit"' + (S.busy ? " disabled" : "") + ">" + (A.mode === "in" ? "Sign in" : "Create account") + "</button>";
+    swap = A.mode === "in" ? 'New here? <button data-act="auth-mode" data-mode="up">Create an account</button>' : 'Already have an account? <button data-act="auth-mode" data-mode="in">Sign in</button>';
+  } else {
+    title = "Doctor sign in"; sub = "For registered medical practitioners listed on Second Reading.";
+    body = '<div class="field"><label for="au-email">Email</label><input id="au-email" type="email" autocomplete="email"></div>' +
+      '<div class="field"><label for="au-pass">Password</label><input id="au-pass" type="password" autocomplete="current-password"></div>' +
+      '<p class="err" id="au-err" role="alert"></p><button class="btn block" data-act="auth-submit"' + (S.busy ? " disabled" : "") + ">Sign in</button>";
+    swap = 'Not listed yet? <button data-act="auth-apply">Apply to join</button>';
+  }
+  return '<div class="ov" id="ov"><div class="dialog" role="dialog" aria-modal="true" aria-labelledby="au-title">' +
+    '<button class="xbtn" data-act="auth-close" aria-label="Close sign in window">×</button>' +
+    '<h2 id="au-title">' + title + '</h2><p class="sub">' + sub + "</p>" +
+    '<div class="rolebar" role="tablist" aria-label="Account type">' +
+    '<button id="au-tab-p" role="tab" aria-selected="' + isP + '" class="' + (isP ? "sel" : "") + '" data-act="auth-role" data-role="patient">I am a patient</button>' +
+    '<button id="au-tab-d" role="tab" aria-selected="' + !isP + '" class="' + (!isP ? "sel" : "") + '" data-act="auth-role" data-role="doctor">I am a doctor</button></div>' +
+    body + '<p class="swap">' + swap + "</p></div></div>";
+}
+function renderModal(focusFirst) {
+  var m = document.getElementById("modal"), activeId = document.activeElement && document.activeElement.id;
+  if (!S.authOpen) { m.innerHTML = ""; document.body.style.overflow = ""; return; }
+  m.innerHTML = authHtml(); document.body.style.overflow = "hidden";
+  var t = null;
+  if (!focusFirst && activeId) t = document.getElementById(activeId);
+  if (!t) t = m.querySelector("input, select") || m.querySelector(".xbtn");
+  if (t) t.focus();
+}
+function openAuth(role, next) {
+  S.auth = { role: role || "patient", mode: "in" }; S.authNext = next || null;
+  S.lastFocus = document.activeElement; S.authOpen = true; renderModal(true);
+}
+function closeAuth() {
+  S.authOpen = false; renderModal();
+  if (S.lastFocus && S.lastFocus.focus && document.body.contains(S.lastFocus)) S.lastFocus.focus();
+}
+function authMsg(id, msg) { var e = document.getElementById(id); if (e) e.textContent = msg; }
+
+async function authSubmit() {
+  if (!sb) { authMsg("au-err", "The website is not connected. Please try again later."); return; }
+  var A = S.auth, email = document.getElementById("au-email").value.trim(), pass = document.getElementById("au-pass").value;
+  authMsg("au-err", ""); authMsg("au-info", "");
+  if (!email || pass.length < 6) { authMsg("au-err", "Enter your email and a password of at least 6 characters."); return; }
+  var name = "", phone = "", age = "";
+  if (A.role === "patient" && A.mode === "up") {
+    name = document.getElementById("au-name").value.trim(); phone = document.getElementById("au-phone").value.trim(); age = document.getElementById("au-age").value.trim();
+    if (!name) { authMsg("au-err", "Please enter your name."); return; }
+  }
+  S.busy = true; document.querySelector("#modal .btn.block").disabled = true;
+  try {
+    var r;
+    if (A.role === "patient" && A.mode === "up") {
+      r = await sb.auth.signUp({ email: email, password: pass, options: { data: { full_name: name, phone: phone } } });
+      if (r.error) throw r.error;
+      if (!r.data.session) {
+        S.busy = false; S.auth.mode = "in"; renderModal(true);
+        authMsg("au-info", "We sent a confirmation link to your email. Open it, then sign in here.");
+        return;
+      }
+      S.user = r.data.session.user;
+      if (age && /^\d+$/.test(age)) await sb.from("profiles").update({ age: +age }).eq("id", S.user.id);
+    } else {
+      r = await sb.auth.signInWithPassword({ email: email, password: pass });
+      if (r.error) throw r.error;
+      S.user = r.data.user;
+    }
+    await loadProfile();
+    if (A.role === "doctor" && !isDoctor()) {
+      await sb.auth.signOut(); S.user = null; S.profile = null; S.busy = false;
+      var b1 = document.querySelector("#modal .btn.block"); if (b1) b1.disabled = false;
+      authMsg("au-err", "This account is not registered as a doctor.");
+      return;
+    }
+    S.busy = false; await finishAuth();
+  } catch (e) {
+    S.busy = false;
+    var b2 = document.querySelector("#modal .btn.block"); if (b2) b2.disabled = false;
+    var m = errMsg(e);
+    if (/invalid login/i.test(m)) m = "Wrong email or password.";
+    else if (/already registered/i.test(m)) m = "This email already has an account. Please sign in instead.";
+    else if (/email not confirmed/i.test(m)) m = "Please confirm your email first. Check your inbox for the link.";
+    authMsg("au-err", m);
+  }
+}
+async function finishAuth() {
+  S.authOpen = false; renderModal(); renderHeader();
+  var next = S.authNext; S.authNext = null;
+  toast("Signed in as " + (S.profile && S.profile.full_name ? S.profile.full_name : "your account"));
+  if (isDoctor()) { S.tab = "req"; go("dash"); }
+  else if (next) go(next);
+  else render();
+}
+
+// ======================================================================
+// RENDER + NAVIGATION
+// ======================================================================
+function render() {
+  var activeId = document.activeElement && document.activeElement.id;
+  var same = lastScreen === S.screen;
+  var map = { home: homeHtml, list: listHtml, doctor: doctorHtml, book: bookHtml, details: detailsHtml, done: doneHtml, mine: mineHtml, dash: dashHtml, appt: apptHtml, doctors: doctorsHtml };
+  var html;
+  if (!sb) html = '<div class="wrap narrow"><div class="empty-state"><h2>The website could not connect</h2><p>Please check your internet connection and reload the page.</p></div></div>';
+  else html = map[S.screen]();
+  document.getElementById("page").innerHTML = '<div class="' + (animate ? "rise" : "") + '">' + html + "</div>";
+  animate = false; lastScreen = S.screen;
+  if (activeId && same && S.screen !== "home" && !S.authOpen) { var n = document.getElementById(activeId); if (n) n.focus(); }
+}
+
+async function go(screen) {
+  if ((screen === "dash" || screen === "appt") && !isDoctor()) { openAuth("doctor", "dash"); return; }
+  if (["mine", "book", "details", "done"].indexOf(screen) > -1 && !isPatient()) {
+    if (isDoctor()) { toast("Sign in as a patient to use this page."); return; }
+    openAuth("patient", screen === "mine" ? "mine" : "book"); return;
+  }
+  S.screen = screen; animate = true; S.loading = false;
+  var needs = (screen === "home" && !S.docsLoaded) || screen === "mine" || screen === "dash" || screen === "book";
+  if (needs) S.loading = true;
+  render(); window.scrollTo(0, 0);
+  if (!needs) return;
+  try {
+    if (screen === "home") await loadDoctors();
+    else if (screen === "mine") await loadMine();
+    else if (screen === "dash") await loadDash();
+    else if (screen === "book") await loadSlots(S.doc.id);
+  } catch (e) { toast("Could not load: " + errMsg(e)); }
+  if (S.screen === screen) { S.loading = false; render(); }
+}
+
+async function refresh() {
+  try {
+    if (S.screen === "mine") await loadMine();
+    else if (S.screen === "dash" || S.screen === "appt") await loadDash();
+    render(); toast("Updated");
+  } catch (e) { toast("Could not refresh: " + errMsg(e)); }
+}
+
+// ======================================================================
+// ACTIONS
+// ======================================================================
+async function submitRequest() {
+  if (S.busy) return;
+  S.busy = true; render();
+  var d = S.doc;
+  try {
+    var ins = await sb.from("appointments").insert({ patient_id: S.user.id, doctor_id: d.id, starts_at: S.slot, duration_min: S.dur, complaint_text: S.draft.text.trim() }).select().single();
+    if (ins.error) {
+      S.busy = false;
+      if (ins.error.code === "23505") { toast("Sorry, that time was just booked. Please choose another."); S.slot = null; await go("book"); }
+      else { toast("Could not send: " + errMsg(ins.error)); render(); }
+      return;
+    }
+    var ap = ins.data, files = S.draft.media.concat(S.draft.reports), failed = 0;
+    for (var i = 0; i < files.length; i++) {
+      var f = files[i], safe = f.name.replace(/[^A-Za-z0-9._-]/g, "_");
+      var path = ap.id + "/" + Date.now() + "-" + i + "-" + safe;
+      var up = await sb.storage.from("records").upload(path, f.file, { contentType: f.file.type || "application/octet-stream" });
+      if (up.error) { failed++; continue; }
+      var at = await sb.from("attachments").insert({ appointment_id: ap.id, kind: f.kind, file_path: path, file_name: f.name });
+      if (at.error) failed++;
+    }
+    S.lastAppt = ap; S.lastFailed = failed; S.busy = false;
+    S.draft = { text: "", media: [], reports: [] }; S.slot = null; S.agree = false;
+    await go("done");
+  } catch (e) { S.busy = false; toast("Could not send: " + errMsg(e)); render(); }
+}
+
+async function setStatus(id, status, msg) {
+  var r = await sb.from("appointments").update({ status: status }).eq("id", id);
+  if (r.error) { toast("Could not update: " + errMsg(r.error)); return; }
+  var a = S.dAppts.filter(function (x) { return x.id === id; })[0]; if (a) a.status = status;
+  render(); toast(msg);
+}
+
+function toItems(files, mode) {
+  var out = [], big = 0;
+  Array.prototype.slice.call(files || []).forEach(function (f) {
+    if (f.size > MAX_FILE_MB * 1048576) { big++; return; }
+    var kind = mode === "media" ? (f.type.indexOf("video") === 0 ? "video" : "audio") : "report";
+    out.push({ file: f, name: f.name, kind: kind });
+  });
+  if (big) toast(big + " file(s) skipped because they are over " + MAX_FILE_MB + " MB.");
+  return out;
+}
+
+document.addEventListener("click", async function (e) {
+  if (e.target.id === "ov") { closeAuth(); return; }
+  var el = e.target.closest("[data-act]");
+  if (!el) return;
+  var a = el.getAttribute("data-act"), id = el.getAttribute("data-id");
+
+  if (a === "go") go(el.getAttribute("data-to"));
+  else if (a === "spec") { S.spec = specById(id); go("list"); }
+  else if (a === "doc") { S.doc = docById(id); S.spec = specById(S.doc.spec); S.slot = null; S.dur = 20; S.agree = false; go("doctor"); }
+  else if (a === "back") {
+    if (S.screen === "list" || S.screen === "doctors") go("home");
+    else if (S.screen === "doctor") go("list");
+    else if (S.screen === "book") go("doctor");
+    else if (S.screen === "appt") { S.screen = "dash"; animate = true; render(); window.scrollTo(0, 0); }
+  }
+  else if (a === "bookgo") {
+    if (isPatient()) go("book");
+    else if (isDoctor()) toast("Sign in as a patient to book.");
+    else openAuth("patient", "book");
+  }
+  else if (a === "day") { S.dayKey = el.getAttribute("data-k"); S.slot = null; render(); }
+  else if (a === "slot") { S.slot = el.getAttribute("data-t"); render(); }
+  else if (a === "dur") { S.dur = +el.getAttribute("data-m"); render(); }
+  else if (a === "rmmedia") { S.draft.media.splice(+el.getAttribute("data-i"), 1); render(); }
+  else if (a === "rmreport") { S.draft.reports.splice(+el.getAttribute("data-i"), 1); render(); }
+  else if (a === "submit") submitRequest();
+  else if (a === "again") { S.spec = null; S.doc = null; S.q = ""; go("home"); }
+  else if (a === "refresh") refresh();
+  else if (a === "tab") { S.tab = el.getAttribute("data-t"); render(); }
+  else if (a === "open") { S.apptId = id; S.screen = "appt"; animate = true; render(); window.scrollTo(0, 0); var ap = S.dAppts.filter(function (x) { return x.id === id; })[0]; if (ap) loadUrls(ap); }
+  else if (a === "confirm") setStatus(id, "confirmed", "Appointment confirmed.");
+  else if (a === "decline") setStatus(id, "declined", "Request declined.");
+  else if (a === "complete") setStatus(id, "completed", "Marked as completed.");
+  else if (a === "join") { window.open(MEET_BASE + id, "_blank", "noopener"); }
+  else if (a === "saveprice") {
+    var v = parseInt(document.getElementById("price").value, 10);
+    if (!(v > 0)) { toast("Enter a price above 0."); return; }
+    var r = await sb.from("doctors").update({ price_per_min: v }).eq("id", S.user.id);
+    if (r.error) toast("Could not save: " + errMsg(r.error)); else { S.myDoc.price_per_min = v; S.docsLoaded = false; render(); toast("Price saved."); }
+  }
+  else if (a === "addslot") {
+    var dv = document.getElementById("sl-date").value, tv = document.getElementById("sl-time").value;
+    if (!dv || !tv) { toast("Choose a date and a start time."); return; }
+    var when = new Date(dv + "T" + tv);
+    if (isNaN(when) || when.getTime() < Date.now()) { toast("Choose a time in the future."); return; }
+    var r2 = await sb.from("slots").insert({ doctor_id: S.user.id, starts_at: when.toISOString() });
+    if (r2.error) toast(r2.error.code === "23505" ? "That slot is already added." : "Could not add: " + errMsg(r2.error));
+    else { await loadDash(); render(); toast("Slot added."); }
+  }
+  else if (a === "delslot") {
+    var r3 = await sb.from("slots").delete().eq("id", id);
+    if (r3.error) toast("Could not remove: " + errMsg(r3.error)); else { await loadDash(); render(); toast("Slot removed."); }
+  }
+  else if (a === "signin") openAuth("patient", null);
+  else if (a === "signin-doc") openAuth("doctor", "dash");
+  else if (a === "signout") { await sb.auth.signOut(); S.user = null; S.profile = null; S.myDoc = null; S.mine = []; S.dAppts = []; S.urls = {}; renderHeader(); go("home"); toast("You have been signed out."); }
+  else if (a === "auth-close") closeAuth();
+  else if (a === "auth-role") { S.auth.role = el.getAttribute("data-role"); renderModal(); }
+  else if (a === "auth-mode") { S.auth.mode = el.getAttribute("data-mode"); renderModal(true); }
+  else if (a === "auth-submit") authSubmit();
+  else if (a === "auth-apply") { S.authOpen = false; renderModal(); go("doctors"); }
+  else if (a === "apply") {
+    var v1 = function (i) { return document.getElementById(i).value.trim(); };
+    if (!v1("a-name") || !v1("a-reg") || !v1("a-phone")) { authMsg("a-err", "Please add your name, registration number and phone number."); return; }
+    authMsg("a-err", ""); S.busy = true; render();
+    var ra = await sb.from("doctor_applications").insert({ full_name: v1("a-name"), speciality: v1("a-spec"), experience: v1("a-exp"), registration_no: v1("a-reg"), council: v1("a-council"), phone: v1("a-phone"), email: v1("a-email") });
+    S.busy = false;
+    if (ra.error) { render(); toast("Could not send: " + errMsg(ra.error)); } else { S.applied = true; render(); }
+  }
+});
+
+document.addEventListener("input", function (e) {
+  if (e.target.id === "search") { S.q = e.target.value; document.getElementById("results").innerHTML = resultsHtml(); }
+  else if (e.target.id === "complaint") { S.draft.text = e.target.value; var b = document.getElementById("submit"); if (b) b.disabled = !draftReady() || S.busy; }
+});
+document.addEventListener("change", function (e) {
+  var id = e.target.id;
+  if (id === "sort") { S.sort = e.target.value; render(); }
+  else if (id === "agree") { S.agree = e.target.checked; render(); }
+  else if (id === "mediapick") { S.draft.media = S.draft.media.concat(toItems(e.target.files, "media")); render(); }
+  else if (id === "reportpick") { S.draft.reports = S.draft.reports.concat(toItems(e.target.files, "report")); render(); }
+});
+document.addEventListener("keydown", function (e) {
+  if (!S.authOpen) return;
+  if (e.key === "Escape") { closeAuth(); return; }
+  if (e.key === "Tab") {
+    var f = document.querySelectorAll("#modal button, #modal input, #modal select");
+    if (!f.length) return;
+    var first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  }
+});
+
+// ======================================================================
+// START
+// ======================================================================
+(async function start() {
+  renderHeader();
+  if (!sb) { render(); return; }
+  S.loading = true; render();
+  try {
+    var s = await sb.auth.getSession();
+    if (s.data && s.data.session) { S.user = s.data.session.user; await loadProfile(); renderHeader(); }
+    await loadDoctors();
+  } catch (e) { toast("Could not load: " + errMsg(e)); }
+  S.loading = false; render();
+  sb.auth.onAuthStateChange(function (ev) {
+    if (ev === "SIGNED_OUT" && S.profile) { S.user = null; S.profile = null; renderHeader(); }
+  });
+})();
+</script>
+</body>
+</html>
